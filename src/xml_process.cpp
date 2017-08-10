@@ -55,12 +55,12 @@ void load_xml_alist(std::string* s_anime_list, std::map<long int, Anime> &alist)
   }
 }
 
-std::string get_matching_type(int id){
+std::string get_matching_serie_type(int id){
   std::string str[7] = {"","TV","OVA","Movie","Special","ONA","Music"};
   return str[id];
 }
 
-int get_matching_type(std::string& src){
+int get_matching_serie_status(std::string& src){
   std::string str[4] = {"","Currently Airing","Finished Airing","Not yet aired"};
   for (int k=0; k<4;++k){
     if (src == str[k])
@@ -74,11 +74,12 @@ std::string get_matching_serie_status(int id){
   return str[id];
 }
 
-int get_matching_serie_status(std::string& src){
+int get_matching_serie_type(std::string& src){
   std::string str[7] = {"","TV","OVA","Movie","Special","ONA","Music"};
   for (int k=0; k<7;++k){
-    if (src == str[k])
+    if (src == str[k]){
       return k;
+    }
   }
   return 0;
 }
@@ -103,7 +104,7 @@ void load_xml_search(std::string* s_anime_list, std::map<long int, searchdata> &
     currentdata.english = cn.child_value("english");
     currentdata.synonyms = cn.child_value("synonyms");
     strbuff = cn.child_value("type");
-    currentdata.type = get_matching_type(strbuff);
+    currentdata.type = get_matching_serie_type(strbuff);
     currentdata.total_eps = std::stoi(cn.child_value("episodes"));
     strbuff = cn.child_value("status");
     currentdata.status = get_matching_serie_status(strbuff);

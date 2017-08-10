@@ -41,7 +41,7 @@ bool Date::valid() const
   bool valid_day = false;
   bool valid_month = false;
   bool valid_year = false;
-  if ((_day < 0) or (_month < 0) or (_year < 0))
+  if ((_day < 0) || (_month < 0) || (_year < 0))
     return false;
   if (_month%2==0) {
     if (_month != 2) 
@@ -49,7 +49,7 @@ bool Date::valid() const
           valid_day = _day < 31;
         else valid_day = _day <= 31;
     else
-      if ((_year%4==0 and _year%100!=0) or _year%400==0) //Leap year
+      if ((_year%4==0 && _year%100!=0) || _year%400==0) //Leap year
         valid_day = _day <= 29;
       else
         valid_day = _day < 29;
@@ -63,7 +63,7 @@ bool Date::valid() const
     valid_month = true;
   if (_year < 9999)
     valid_year = true;
-  return (valid_day and valid_month and valid_year);
+  return (valid_day && valid_month && valid_year);
 }
 /* Accessor */
 int Date::day() const
