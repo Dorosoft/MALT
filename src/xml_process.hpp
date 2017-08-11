@@ -11,5 +11,6 @@
 void load_xml_alist(std::string* s_anime_list, std::map<long int, Anime>& alist);
 void load_xml_search(std::string* s_anime_list, std::map<long int, searchdata> &dst);
 std::string add_xml_anime(const struct myanimedata* data);
+void import_xml_alist(std::string& filename, std::map<long int, Anime> &alist);
 
 #endif

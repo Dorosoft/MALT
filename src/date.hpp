@@ -24,5 +24,6 @@ class Date {
 };
 
 Date& convert_to_date(const char* src, Date& dst);
-
+Date& convert_off_to_date(const char* src, Date& dst);
+    
 #endif

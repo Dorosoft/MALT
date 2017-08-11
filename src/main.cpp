@@ -7,7 +7,7 @@
 
 std::string MALUSER;
 std::string MALPWD;
-
+std::string FILENAME = "export_list.xml";
 
 int main()
 {
@@ -21,6 +21,8 @@ int main()
     << "2 - Load anime list \n"
     << "3 - Print anime list \n"
     << "4 - Make a search\n"
+    << "5 - Export offline xml \n"
+    << "6 - Import offline xml \n"
     << "0 - Exit \n"
     << "Enter your choice : ";
   std::cin >> choice;
@@ -52,6 +54,13 @@ int main()
       search_list(keywords, slist);
       display_all(&slist);
       break;
+    case 5 :
+      export_all(&alist);
+      break;
+    case 6 :
+      import_xml_alist(FILENAME, alist);
+      break;
+
     case 0 :
       curl_finalize();
       return EXIT_SUCCESS;

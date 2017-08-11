@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "date.hpp"
+#include "pugixml.hpp"
 
 
 struct animedata {
@@ -43,6 +44,7 @@ class Anime {
     Anime(long int dbid);
     Anime(long int dbid, struct animedata& data, struct myanimedata& udata);
     friend std::ostream& operator<<(std::ostream& os, const Anime& ani);
+    void export_xml(pugi::xml_node&);
 
   protected:
     struct animedata _data;

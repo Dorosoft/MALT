@@ -103,6 +103,22 @@ Date& convert_to_date(const char* src, Date& dst){
   return dst;
 }
 
+/* Convert mmddyyyy string to Date */
+Date& convert_off_to_date(const char* src, Date& dst){
+  if (std::atoi(src) == 0){
+    dst = Date(0,0,0);
+    return dst;
+  }
+  else {
+    int month = (src[0]-'0')*10 + (src[1]-'0');
+    int day = (src[2]-'0')*10 + (src[3]-'0');
+    int year = (src[4]-'0')*1000 + (src[5]-'0')*100
+     + (src[6]-'0')*10 + (src[7]-'0');
+    dst = Date(day,month,year);
+    return dst;
+  }
+}
+
 std::string Date::xml_str() const{
   std::string d,m,y;
   if (_day < 10)

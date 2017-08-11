@@ -22,4 +22,5 @@ void display_all(T alist){
   }
 }
 // void display_all (std::map<long, Anime>* const alist);
+void export_all(std::map<long, Anime>* const alist);
 #endif

@@ -26,7 +26,7 @@ void load_xml_alist(std::string* s_anime_list, std::map<long int, Anime> &alist)
     cid = std::stol(cn.child_value("series_animedb_id"));
     Date series_start, series_end, my_start, my_end;
     series_start = convert_to_date(cn.child_value("series_start"), series_start);
-    series_end = convert_to_date(cn.child_value("series_start"), series_end);
+    series_end = convert_to_date(cn.child_value("series_end"), series_end);
     my_start = convert_to_date(cn.child_value("my_start_date"), my_start);
     my_end = convert_to_date(cn.child_value("my_finish_date"), my_end); 
     
@@ -38,7 +38,7 @@ void load_xml_alist(std::string* s_anime_list, std::map<long int, Anime> &alist)
     cdata.status = std::stoi(cn.child_value("series_status"));
     cdata.series_start = series_start;
     cdata.series_end = series_end;
-    cdata.img_url = cn.child_value("img_url");
+    cdata.img_url = cn.child_value("series_image");
 
     struct myanimedata cudata;
     
@@ -171,4 +171,47 @@ std::string add_xml_anime(const struct myanimedata* data){
   node_tag.append_child(pugi::node_pcdata).set_value("");
   doc.print(ss);
   return ss.str();
+}
+
+void import_xml_alist(std::string& filename, std::map<long int, Anime> &alist){
+  pugi::xml_document doc;
+  pugi::xml_parse_result result = doc.load_file(filename.c_str());
+
+
+  std::cout << "Load result: " << result.description() << std::endl;
+  pugi::xml_node animeNode = doc.first_child();
+  
+  long int cid;
+  for (pugi::xml_node cn = animeNode.child("entry"); cn; cn = cn.next_sibling())
+  {
+    cid = std::stol(cn.attribute("dbid").value());
+    Date series_start, series_end, my_start, my_end;
+    series_start = convert_off_to_date(cn.child_value("series_start"), series_start);
+    series_end = convert_off_to_date(cn.child_value("series_end"), series_end);
+    my_start = convert_off_to_date(cn.child_value("my_start"), my_start);
+    my_end = convert_off_to_date(cn.child_value("my_end"), my_end); 
+    
+    struct animedata cdata; 
+    cdata.title = cn.child_value("title");
+    cdata.synonyms = cn.child_value("synonyms");
+    //cdata.type = std::stoi(cn.child_value("type"));
+    //cdata.total_eps = std::stoi(cn.child_value("total_eps"));
+    //cdata.status = std::stoi(cn.child_value("status"));
+    cdata.series_start = series_start;
+    cdata.series_end = series_end;
+    cdata.img_url = cn.child_value("img_url");
+
+    struct myanimedata cudata;
+    
+    //cudata.watched_eps = std::stoi(cn.child_value("watched_eps"));
+    cudata.my_start = my_start;
+    cudata.my_end = my_end;
+    //cudata.my_score = std::stoi(cn.child_value("my_score"));
+    //cudata.my_status = std::stoi(cn.child_value("my_status"));
+    //cudata.rewatching_eps = std::stoi(cn.child_value("rewatching_ep"));
+    cudata.tags = cn.child_value("tags");
+        
+    Anime currentanime(cid, cdata, cudata);
+    alist[cid] = currentanime;
+  }
 }
