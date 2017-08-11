@@ -194,21 +194,21 @@ void import_xml_alist(std::string& filename, std::map<long int, Anime> &alist){
     struct animedata cdata; 
     cdata.title = cn.child_value("title");
     cdata.synonyms = cn.child_value("synonyms");
-    //cdata.type = std::stoi(cn.child_value("type"));
-    //cdata.total_eps = std::stoi(cn.child_value("total_eps"));
-    //cdata.status = std::stoi(cn.child_value("status"));
+    cdata.type = std::atoi(cn.child_value("type"));
+    cdata.total_eps = std::stoi(cn.child_value("total_eps"));
+    cdata.status = std::atoi(cn.child_value("status"));
     cdata.series_start = series_start;
     cdata.series_end = series_end;
     cdata.img_url = cn.child_value("img_url");
 
     struct myanimedata cudata;
     
-    //cudata.watched_eps = std::stoi(cn.child_value("watched_eps"));
+    cudata.watched_eps = std::atoi(cn.child_value("watched_eps"));
     cudata.my_start = my_start;
     cudata.my_end = my_end;
-    //cudata.my_score = std::stoi(cn.child_value("my_score"));
-    //cudata.my_status = std::stoi(cn.child_value("my_status"));
-    //cudata.rewatching_eps = std::stoi(cn.child_value("rewatching_ep"));
+    cudata.my_score = std::atoi(cn.child_value("my_score"));
+    cudata.my_status = std::atoi(cn.child_value("my_status"));
+    cudata.rewatching_eps = std::atoi(cn.child_value("rewatching_ep"));
     cudata.tags = cn.child_value("tags");
         
     Anime currentanime(cid, cdata, cudata);
