@@ -13,7 +13,7 @@ Date::Date(int day, int month, int year)
   _day = day;
   _month = month;
   _year = year;
-  if (not this->valid())
+  if (! this->valid())
     std::cerr << "Warning ! Build an invalid date" << day << "/" << month << "/" << year << std::endl;
 }
 
